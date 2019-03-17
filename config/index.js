@@ -3,7 +3,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-const express = require('express');
+/*const express = require('express');
 
 
 const app = express();
@@ -30,7 +30,7 @@ io.on('connection', function(socket) {
         response = false
       }
     },5000)
-});
+});*/
 module.exports = {
   dev: {
 
