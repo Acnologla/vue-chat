@@ -8,7 +8,7 @@
         <div class='chatbox'>
             <div id ='chat'>
             <div v-for="(msg) in messages">
-                <div class='msgi' :style='"background-color:"+ msg.color'><div class="author">{{formatPlayers(msg.user)}}</div><div class="mes">{{formatPlayers(msg.message)}}</div></div>
+                <div class='msgi' :style='"background-color:"+ msg.color'><div class="author">{{formatPlayers(`${msg.user}  |  ${msg.data}`)}}</div><div class="mes">{{formatPlayers(msg.message)}}</div></div>
                 </div>
                 </div>
             <input  v-model="message"  type='text' v-on:keyup.enter="sendMessage()" id ='msg' placeholder='Write here!!'>
@@ -42,7 +42,8 @@ export default {
             this.socket.emit('send', {
                 user: this.user,
                 message: this.message,
-                color: this.color
+                color: this.color,
+                data: new Date().toJSON().slice(0,10) + ":"+  new Date().toJSON().split(":")[1] + ":"+ new Date().toJSON().split(":")[2].slice(0,2)
             });
             this.message = ''
             }
@@ -63,9 +64,9 @@ export default {
                 istrue = true
                }
             this.messages.push(data)
-            if(this.messages.length > 10){
-                
-            }
+           /* if(this.messages.length > 50){
+                this.messages.unshift();
+            }*/
             if (istrue){
                   setTimeout(function(){
                   elem.scrollTop = document.getElementById('chat').scrollHeight},100)
