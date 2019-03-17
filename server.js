@@ -7,37 +7,45 @@ const port = process.env.PORT || 80;
 const server = app.listen(port);
 const io = require('socket.io')(server);
 
-/*io.configure(function () { 
-    io.set("transports", ["xhr-polling"]); 
-    io.set("polling duration", 10); 
-  });*/
-  let conected = []
-io.on('connection', function(socket) {
-  var response = false
 
+io.on('connection', function(socket) {
+  let {username,code} = socket.handshake.query
+  if (!username || !code) return
+  socket.join(code)
+  socket.username = username
+  var response = false
+  if (!io.sockets.adapter.rooms[code]) return;
+  if (!io.sockets.adapter.rooms[code].messages) io.sockets.adapter.rooms[code].messages = []
+  io.to(code).emit("novo",{
+      users: Object.keys(io.sockets.adapter.rooms[code].sockets).map(id => io.sockets.connected[id]).map(a => a.username)
+  })
+  socket.on("users",function(){
+    if (!io.sockets.adapter.rooms[code]) return;
+    io.to(code).emit("novo",{
+      users: Object.keys(io.sockets.adapter.rooms[code].sockets).map(id => io.sockets.connected[id]).map(a => a.username)
+    })
+  })
  socket.on('send2', function(data) {
   socket.emit("respondeu",data)
-  if (!conected.includes(data.user)){
-  conected.push(data.user)
-  io.emit("novo",{
-      users: conected
-  })
-}
-  socket.username = data.user
-  response = true
+   response = true
 });
+      socket.emit("messages",io.sockets.adapter.rooms[code].messages)
     socket.on('send', function(data) {
-        io.emit('back', data)
+      io.sockets.adapter.rooms[code].messages.push(data)
+      io.to(code).emit('back', data)
     });
   
    let int =  setInterval(function(){
       if (!response){
-         conected.splice(conected.indexOf(socket.username),1)
-         io.emit("novo",conected)
+        if (io.sockets.adapter.rooms[code]){
+         io.to(code).emit("novo",{
+           users:Object.keys(io.sockets.adapter.rooms[code].sockets).map(id => io.sockets.connected[id]).map(a => a.username)
+         })}
          clearInterval(int)
+         socket.leave(code)
         return socket.disconnect()
       }else {
         response = false
       }
-    },5000)
+    },2000)
 });
