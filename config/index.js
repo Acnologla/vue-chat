@@ -2,35 +2,9 @@
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
 
-const path = require('path')
-/*const express = require('express');
 
+const path = require('path');
 
-const app = express();
-
-const server = app.listen(3001)
-
-
-const io = require('socket.io')(server);
-
-io.on('connection', function(socket) {
-  var response = false
-
- socket.on('send2', function(data) {
-  socket.emit("respondeu",data)
-  response = true
-});
-    socket.on('send', function(data) {
-        io.emit('back', data)
-    });
-  
-    setInterval(function(){
-      if (!response) return socket.disconnect()
-      else {
-        response = false
-      }
-    },5000)
-});*/
 module.exports = {
   dev: {
 
