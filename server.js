@@ -7,6 +7,10 @@ const port = process.env.PORT || 80;
 const server = app.listen(port);
 const io = require('socket.io')(server);
 
+io.configure(function () { 
+    io.set("transports", ["xhr-polling"]); 
+    io.set("polling duration", 10); 
+  });
 io.on('connection', function(socket) {
   var response = false
 
