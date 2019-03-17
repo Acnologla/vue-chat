@@ -4,7 +4,7 @@ const path = require('path');
 app = express();
 app.use(serveStatic(path.join(__dirname, 'dist')));
 const port = process.env.PORT || 80;
-app.listen(port);
+const server = app.listen(port);
 const io = require('socket.io')(server);
 
 io.on('connection', function(socket) {
