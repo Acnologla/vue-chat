@@ -1,0 +1,67 @@
+.imagebg {
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    background-position: center;
+    transform: scale(1.1);
+    filter: blur(10px);
+    background-image: url(http://altosadventure.com/resources/screenshots/4_Night.png);
+  }
+  
+
+  
+  .menu{
+    z-index: 100;
+    width: calc(100% - 50px);
+    padding: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+  
+  
+  
+  .ipad{
+    width: 500px;
+    height: 75%;
+    top: 30%;
+    position: absolute;
+    background-color: #1f1f1f;
+    left: calc(55% - 60px);
+    border: 30px solid #212121;
+    border-top: 50px solid #212121;
+    border-radius: 20px;
+  }
+  
+  .title{
+    color: #fff;
+    font-family: Raleway;
+    font-weight: 600;
+    font-size: 40px;
+    width: 40%;
+    line-height: 45px;
+    top: calc(50% - 125px);
+    position: relative;
+    text-align: center;
+    left: 5%;
+  }
+  
+  .subtitle{
+    top: 30px;
+    font-size: 20px;
+    line-height: 25px;
+    width: 70%;
+    color: #d8d8d8;
+    font-weight: 300;
+    left: 15%;
+    position: relative;
+  }
+  
+  .item {
+    padding: 15px;
+    color: #fff;
+    font-size: 15px;
+    text-decoration: none;
+    
+  }
